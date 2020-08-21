@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class MyCookiesJar implements CookieJar {
-    private Map<HttpUrl, List<Cookie>> cookies = new ConcurrentHashMap<>();
+    private static Map<HttpUrl, List<Cookie>> cookiesss = new ConcurrentHashMap<>();
 
 
     /**
@@ -26,7 +26,8 @@ public class MyCookiesJar implements CookieJar {
      */
     @Override
     public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-        this.cookies.put(url,cookies);
+        cookiesss.put(url,cookies);
+        System.out.println("test");
     }
 
     /**
@@ -40,27 +41,28 @@ public class MyCookiesJar implements CookieJar {
      */
     @Override
     public List<Cookie> loadForRequest(HttpUrl url) {
-        List<Cookie> thisCookies = this.cookies.get(url);
-        if(thisCookies == null) {
-            return new ArrayList<>();
-        }else {
-            // 无效cookie
-            List<Cookie> invalidCookies = new ArrayList<>();
-            //有效的Cookie
-            List<Cookie> validCookies = new ArrayList<>();
-            for (Cookie cookie : thisCookies) {
-                if (cookie.expiresAt() < System.currentTimeMillis()) {
-                    //判断是否过期
-                    invalidCookies.add(cookie);
-                } else if (cookie.matches(url)) {
-                    //匹配Cookie对应url
-                    validCookies.add(cookie);
-                }
-            }
-            //缓存中移除过期的Cookie
-            //thisCookies.removeAll(invalidCookies);
-            //返回List<Cookie>让Request进行设置
-            return validCookies;
-        }
+        List<Cookie> thisCookies = cookiesss.get(url);
+//        if(thisCookies == null) {
+//            return new ArrayList<>();
+//        }else {
+//            // 无效cookie
+//            List<Cookie> invalidCookies = new ArrayList<>();
+//            //有效的Cookie
+//            List<Cookie> validCookies = new ArrayList<>();
+//            for (Cookie cookie : thisCookies) {
+//                if (cookie.expiresAt() < System.currentTimeMillis()) {
+//                    //判断是否过期
+//                    invalidCookies.add(cookie);
+//                } else if (cookie.matches(url)) {
+//                    //匹配Cookie对应url
+//                    validCookies.add(cookie);
+//                }
+//            }
+//            //缓存中移除过期的Cookie
+//            //thisCookies.removeAll(invalidCookies);
+//            //返回List<Cookie>让Request进行设置
+//            return validCookies;
+//        }
+        return thisCookies == null ? new ArrayList<Cookie>() : thisCookies;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.myapplication2.retrofit;
 
 import android.util.Log;
+import com.example.myapplication2.config.HeaderInterceptor;
 import com.example.myapplication2.config.MyCookiesJar;
 import com.example.myapplication2.request.RequestApi;
 import okhttp3.OkHttpClient;
@@ -46,7 +47,9 @@ public class RetrofitHandler {
                 if(okHttpClient == null) {
                     okHttpClient = new OkHttpClient.Builder()
                             .connectTimeout(10, TimeUnit.SECONDS)
-                            .cookieJar(new MyCookiesJar())
+                            //.addInterceptor(HeaderInterceptor.getHeader())
+                            .addInterceptor(HeaderInterceptor.setHeader())
+                            //.cookieJar(new MyCookiesJar())
                             .build();
                 }
             }

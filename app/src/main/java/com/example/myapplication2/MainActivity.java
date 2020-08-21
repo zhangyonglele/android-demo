@@ -1,5 +1,6 @@
 package com.example.myapplication2;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
@@ -8,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import com.example.myapplication2.activities.MyProjectActivity;
 import com.example.myapplication2.observer.BaseObserver;
 import com.example.myapplication2.retrofit.RetrofitHandler;
 import com.example.myapplication2.util.RxTransformerHelper;
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     protected void onSuccess(UniversalResponseBody<String> responseBody) {
                         showTos();
+                        Intent next = new Intent(MainActivity.this,MyProjectActivity.class);
+                        startActivity(next);
                     }
 
                     @Override

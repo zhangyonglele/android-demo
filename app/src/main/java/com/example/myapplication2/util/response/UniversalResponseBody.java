@@ -20,7 +20,7 @@ public class UniversalResponseBody<T> {
         this.data = data;
     }
 
-    @Expose
+    //@Expose
     private T data;
 
     public int getErrorCode() {
